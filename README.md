@@ -6,7 +6,7 @@ Command line tool to render text from NDS .NFTR fonts.
 ## Run from source
 Install pipenv.  
 `pipenv install`  
-`pipenv run ndstextgen --help`  
+`pipenv run python ndstextgen --help`  
 ## Usage
 `ndstextgen <options> FONT "TEXT"`  
 Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`  
