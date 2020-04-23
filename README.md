@@ -9,7 +9,7 @@ Install pipenv.
 `pipenv run ndstextgen --help`  
 ## Usage
 `ndstextgen <options> FONT "TEXT"`  
-Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`
+Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`  
 `FONT`: (Required) Filename of the font, .NFTR extension can be omitted.  
 `TEXT`: (Required) Text to write. "\\n" can be used for a line break.  
 `--out <file>`: Output file. Default: text.png  
