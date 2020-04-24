@@ -22,7 +22,7 @@ setup(
         "console_scripts": ["ndstextgen=ndstextgen.cli:main"],
     },
     install_requires=[
-        "hacktools>=0.9"
+        "hacktools>=0.10"
     ],
     python_requires=">=3.7",
 )

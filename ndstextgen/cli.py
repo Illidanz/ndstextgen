@@ -2,7 +2,7 @@ import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
@@ -24,7 +24,7 @@ def gen(font, text, out, vert, fw, color, size):
             common.logError("Font", font, "not found")
             return
     # Read the font data
-    nftr = nitro.readNFTR(font)
+    nftr = nitro.readNFTR(font, True)
     # Create the empty image
     img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     # Generate the text
@@ -37,6 +37,9 @@ def gen(font, text, out, vert, fw, color, size):
             currentx = 0
             currenty += nftr.height + vert
             continue
+        if c not in nftr.glyphs:
+            common.logMessage("[WARNING] Glyph", hex(ord(c)), "not found.")
+            c = " "
         glyph = nftr.glyphs[c]
         glyphdata = nftr.plgc[glyph.index]
         img.paste(glyphdata, (currentx + glyph.start, currenty))
