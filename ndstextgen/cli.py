@@ -1,8 +1,9 @@
+import codecs
 import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
@@ -16,13 +17,17 @@ __version__ = "1.1.0"
 def gen(font, text, out, vert, fw, color, size):
     """FONT is the font file, .NFTR extension can be omitted.
 
-    TEXT is the text to write. "\\n" can be used for a line break."""
+    TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
     if not os.path.isfile(font):
         if not font.lower().endswith(".nftr"):
             font = font + ".NFTR"
         if not os.path.isfile(font):
             common.logError("Font", font, "not found")
             return
+    if os.path.isfile(text):
+        with codecs.open(text, "r", "utf-8") as f:
+            text = f.read().replace("\r\n", "\\n").replace("\n", "\\n")
+    text = text.replace("\\n", "\n")
     # Read the font data
     nftr = nitro.readNFTR(font, True)
     # Create the empty image
@@ -30,7 +35,6 @@ def gen(font, text, out, vert, fw, color, size):
     # Generate the text
     currentx = 0
     currenty = 0
-    text = text.replace("\\n", "\n")
     for i in range(len(text)):
         c = text[i]
         if c == "\n":
