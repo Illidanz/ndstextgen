@@ -3,18 +3,20 @@ import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.2.1"
+__version__ = "1.3.0"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
 @click.argument("font")
 @click.argument("text")
-@click.option("--out",   default="text.png", help="Output file.")
-@click.option("--vert",  default=2,          help="Vertical spacing between lines.")
-@click.option("--fw",    default=0,          help="Use a fixed width instead of the VWF values in the font.")
-@click.option("--color", default="black",    help="Color to apply to the font.")
-@click.option("--size",  default=512,        help="Maximum width/height for the generated image.")
-def gen(font, text, out, vert, fw, color, size):
+@click.option("--out",   default="text.png",    help="Output file.")
+@click.option("--vert",  default=2,             help="Vertical spacing between lines.")
+@click.option("--fw",    default=0,             help="Use a fixed width instead of the VWF values in the font.")
+@click.option("--color", default="black",       help="Color to apply to the font.")
+@click.option("--bg",    default="transparent", help="Background color.")
+@click.option("--size",  default=512,           help="Maximum width/height for the generated image.")
+@click.option("--crop",  is_flag=True,          help="Crop the image before saving it.")
+def gen(font, text, out, vert, fw, color, bg, size, crop):
     """FONT is the font file, .NFTR extension can be omitted.
 
     TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
@@ -57,9 +59,15 @@ def gen(font, text, out, vert, fw, color, size):
         img = Image.new("RGBA", (size, size), color)
         img.putalpha(alpha)
     # Crop and save the image
-    bbox = img.getbbox()
-    img = img.crop(bbox)
-    img.save(out, "PNG")
+    if crop:
+        bbox = img.getbbox()
+        img = img.crop(bbox)
+    if bg == "transparent":
+        final = img
+    else:
+        final = Image.new("RGBA", (img.width, img.height), bg if bg != "transparent" else (0, 0, 0, 0))
+        final.paste(img, (0, 0), img)
+    final.save(out, "PNG")
     common.logMessage("Done!")
 
 
