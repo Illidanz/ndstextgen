@@ -25,7 +25,7 @@ def gen(font, text, out, vert, fw, color, bg, width, height, no_crop):
         if not font.lower().endswith(".nftr"):
             font = font + ".NFTR"
         if not os.path.isfile(font):
-            common.logError("Font", font, "not found")
+            common.logMessage("[ERROR] Font", font, "not found")
             return
     if os.path.isfile(text):
         with codecs.open(text, "r", "utf-8") as f:
@@ -69,7 +69,6 @@ def gen(font, text, out, vert, fw, color, bg, width, height, no_crop):
         final = Image.new("RGBA", (img.width, img.height), bg if bg != "transparent" else (0, 0, 0, 0))
         final.paste(img, (0, 0), img)
     final.save(out, "PNG")
-    common.logMessage("Done!")
 
 
 def main():
