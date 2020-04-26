@@ -23,5 +23,5 @@ Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`
 ## Script usage
 ```python
 import ndstextgen
-gen("font.NFTR", "Print multiline\nred text.", color="red")
+ndstextgen.gen("font.NFTR", "Print multiline\nred text.", color="red")
 ```
