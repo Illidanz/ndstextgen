@@ -19,6 +19,7 @@ Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`
 `--bg <text>`: Background color. Default: transparent  
 `--width <int>`: Set width for the generated image. Default: 256  
 `--height <int>`: Set height for the generated image. Default: 256  
+`--center`: Center each line.  
 `--no-crop`: Don't crop the image before saving it.  
 ## Script usage
 ```python

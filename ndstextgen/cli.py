@@ -16,8 +16,9 @@ __version__ = "1.3.0"
 @click.option("--bg",      default="transparent", help="Background color.")
 @click.option("--width",   default=256,           help="Set width for the generated image.")
 @click.option("--height",  default=256,           help="Set height for the generated image.")
+@click.option("--center",  is_flag=True,          help="Center each line.")
 @click.option("--no-crop", is_flag=True,          help="Don't crop the image before saving it.")
-def gen(font, text, out, vert, fw, color, bg, width, height, no_crop):
+def gen(font, text, out, vert, fw, color, bg, width, height, center, no_crop):
     """FONT is the font file, .NFTR extension can be omitted.
 
     TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
@@ -31,16 +32,29 @@ def gen(font, text, out, vert, fw, color, bg, width, height, no_crop):
         with codecs.open(text, "r", "utf-8") as f:
             text = f.read().replace("\r\n", "\\n").replace("\n", "\\n")
     text = text.replace("\\n", "\n")
+    # Add an additional line break to center the last line
+    if not text.endswith("\n"):
+        text += "\n"
     # Read the font data
     nftr = nitro.readNFTR(font, True)
     # Create the empty image
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    if center:
+        clearline = Image.new("RGBA", (width, nftr.height + vert), (0, 0, 0, 0))
     # Generate the text
     currentx = 0
     currenty = 0
     for i in range(len(text)):
         c = text[i]
         if c == "\n":
+            # Center the line
+            if center:
+                line = img.crop((0, currenty, width, currenty + nftr.height + vert))
+                bbox = line.getbbox()
+                line = line.crop(bbox)
+                img.paste(clearline, (0, currenty))
+                img.paste(line, ((width - line.width) // 2, currenty))
+            # Reset the x position and increase y
             currentx = 0
             currenty += nftr.height + vert
             continue
