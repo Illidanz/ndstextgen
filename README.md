@@ -12,7 +12,7 @@ Install pipenv.
 Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`  
 `FONT`: (Required) Filename of the font, .NFTR extension can be omitted.  
 `TEXT`: (Required) Text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from.  
-`--out <file>`: Output file. Default: text.png  
+`--out <file>`: Output file, set empty to just return the image. Default: text.png  
 `--vert <int>`: Vertical spacing between lines. Default: 2  
 `--fw <int>`: Use a fixed width instead of the VWF values in the font.  
 `--color <text>`: Color to apply to the font. Default: black  
@@ -23,5 +23,5 @@ Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`
 ## Script usage
 ```python
 import ndstextgen
-ndstextgen.gen("font.NFTR", "Print multiline\nred text.", color="red")
+image = ndstextgen.gen("font.NFTR", "Print multiline\nred text.", color="red")
 ```

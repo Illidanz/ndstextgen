@@ -9,7 +9,7 @@ __version__ = "1.3.0"
 @common.cli.command(context_settings=dict(show_default=True))
 @click.argument("font")
 @click.argument("text")
-@click.option("--out",     default="text.png",    help="Output file.")
+@click.option("--out",     default="text.png",    help="Output file, set empty to just return the image.")
 @click.option("--vert",    default=2,             help="Vertical spacing between lines.")
 @click.option("--fw",      default=0,             help="Use a fixed width instead of the VWF values in the font.")
 @click.option("--color",   default="black",       help="Color to apply to the font.")
@@ -26,7 +26,7 @@ def gen(font, text, out, vert, fw, color, bg, width, height, no_crop):
             font = font + ".NFTR"
         if not os.path.isfile(font):
             common.logMessage("[ERROR] Font", font, "not found")
-            return
+            return None
     if os.path.isfile(text):
         with codecs.open(text, "r", "utf-8") as f:
             text = f.read().replace("\r\n", "\\n").replace("\n", "\\n")
@@ -68,7 +68,9 @@ def gen(font, text, out, vert, fw, color, bg, width, height, no_crop):
     else:
         final = Image.new("RGBA", (img.width, img.height), bg if bg != "transparent" else (0, 0, 0, 0))
         final.paste(img, (0, 0), img)
-    final.save(out, "PNG")
+    if out != "":
+        final.save(out, "PNG")
+    return final
 
 
 def main():
