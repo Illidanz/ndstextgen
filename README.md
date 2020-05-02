@@ -15,6 +15,7 @@ Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`
 `--out <file>`: Output file, set empty to just return the image. Default: text.png  
 `--vert <int>`: Vertical spacing between lines. Default: 2  
 `--fw <int>`: Use a fixed width instead of the VWF values in the font.  
+`--spacing <int>`: Additional horizontal spacing between characters.  
 `--color <text>`: Color to apply to the font. Default: black  
 `--bg <text>`: Background color. Default: transparent  
 `--width <int>`: Set width for the generated image. Default: 256  

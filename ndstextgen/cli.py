@@ -3,7 +3,7 @@ import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.4.0"
+__version__ = "1.4.1"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
@@ -12,13 +12,14 @@ __version__ = "1.4.0"
 @click.option("--out",     default="text.png",    help="Output file, set empty to just return the image.")
 @click.option("--vert",    default=2,             help="Vertical spacing between lines.")
 @click.option("--fw",      default=0,             help="Use a fixed width instead of the VWF values in the font.")
+@click.option("--spacing", default=0,             help="Additional horizontal spacing between characters.")
 @click.option("--color",   default="black",       help="Color to apply to the font.")
 @click.option("--bg",      default="transparent", help="Background color.")
 @click.option("--width",   default=256,           help="Set width for the generated image.")
 @click.option("--height",  default=256,           help="Set height for the generated image.")
 @click.option("--center",  is_flag=True,          help="Center each line.")
 @click.option("--no-crop", is_flag=True,          help="Don't crop the image before saving it.")
-def gen(font, text, out, vert, fw, color, bg, width, height, center, no_crop):
+def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, no_crop):
     """FONT is the font file, .NFTR extension can be omitted.
 
     TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
@@ -65,9 +66,9 @@ def gen(font, text, out, vert, fw, color, bg, width, height, center, no_crop):
         glyphdata = nftr.plgc[glyph.index]
         img.paste(glyphdata, (currentx + glyph.start, currenty))
         if fw > 0:
-            currentx += fw
+            currentx += fw + spacing
         else:
-            currentx += glyph.length
+            currentx += glyph.length + spacing
     # Tint the image
     if color != "black":
         alpha = img.getchannel("A")
