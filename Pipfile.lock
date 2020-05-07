@@ -58,10 +58,10 @@
         },
         "click": {
             "hashes": [
-                "sha256:8a18b4ea89d8820c5d0c7da8a64b2c324b4dabb695804dbfea19b9be9d88c0cc",
-                "sha256:e345d143d80bf5ee7534056164e5e112ea5e22716bbb1ce727941f4c8b471b9a"
+                "sha256:d2b5255c7c6349bc1bd1e59e08cd12acbbd63ce649f2588755783aa94dfb6b1a",
+                "sha256:dacca89f4bfadd5de3d7489b7c8a566eee0d3676333fbb50030263894c38c0dc"
             ],
-            "version": "==7.1.1"
+            "version": "==7.1.2"
         },
         "crcmod": {
             "hashes": [
@@ -77,11 +77,11 @@
         },
         "hacktools": {
             "hashes": [
-                "sha256:78befa64a39ea176600abdc1e6c97b04ef7c79c865534a2f16448bb1e6c42012",
-                "sha256:f0eaf6658058670314053432ae9eab2a3c4419925f52eeb88ecb8793dc9c6094"
+                "sha256:ad173b49c9b2e93bd0c93a9f5bb63acd01c2c31cc573bfcfbaee848752c30eba",
+                "sha256:c13d331ac45f82fa114286befba361c1e5324ec730ffadf1efdbd315f025b540"
             ],
             "index": "pypi",
-            "version": "==0.10.2"
+            "version": "==0.11.0"
         },
         "ndspy": {
             "hashes": [
@@ -156,10 +156,10 @@
         },
         "tqdm": {
             "hashes": [
-                "sha256:00339634a22c10a7a22476ee946bbde2dbe48d042ded784e4d88e0236eca5d81",
-                "sha256:ea9e3fd6bd9a37e8783d75bfc4c1faf3c6813da6bd1c3e776488b41ec683af94"
+                "sha256:4733c4a10d0f2a4d098d801464bdaf5240c7dadd2a7fde4ee93b0a0efd9fb25e",
+                "sha256:acdafb20f51637ca3954150d0405ff1a7edde0ff19e38fb99a80a66210d2a28f"
             ],
-            "version": "==4.45.0"
+            "version": "==4.46.0"
         }
     },
     "develop": {}

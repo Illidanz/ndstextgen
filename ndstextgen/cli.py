@@ -3,7 +3,7 @@ import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.4.1"
+__version__ = "1.5.0"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
@@ -18,8 +18,9 @@ __version__ = "1.4.1"
 @click.option("--width",   default=256,           help="Set width for the generated image.")
 @click.option("--height",  default=256,           help="Set height for the generated image.")
 @click.option("--center",  is_flag=True,          help="Center each line.")
+@click.option("--wwrap",   is_flag=True,          help="Automatic wordwrap.")
 @click.option("--no-crop", is_flag=True,          help="Don't crop the image before saving it.")
-def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, no_crop):
+def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, wwrap, no_crop):
     """FONT is the font file, .NFTR extension can be omitted.
 
     TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
@@ -38,6 +39,18 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, no
         text += "\n"
     # Read the font data
     nftr = nitro.readNFTR(font, True)
+    if wwrap:
+        # Extract the glyphs for wordwrapping
+        glyphs = {}
+        for char in nftr.glyphs:
+            glyph = nftr.glyphs[char]
+            glyphs[char] = nitro.FontGlyph(glyph.start, glyph.width, glyph.length, glyph.char, glyph.code, glyph.index)
+            if fw > 0:
+                glyphs[char].length = fw
+            else:
+                glyphs[char].length += spacing
+        # Wordwrap the text
+        text = common.wordwrap(text, glyphs, width, default=nftr.width, linebreak="\n", sectionsep="")
     # Create the empty image
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     if center:
