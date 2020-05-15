@@ -44,7 +44,7 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, ww
         glyphs = {}
         for char in nftr.glyphs:
             glyph = nftr.glyphs[char]
-            glyphs[char] = nitro.FontGlyph(glyph.start, glyph.width, glyph.length, glyph.char, glyph.code, glyph.index)
+            glyphs[char] = common.FontGlyph(glyph.start, glyph.width, glyph.length, glyph.char, glyph.code, glyph.index)
             if fw > 0:
                 glyphs[char].length = fw
             else:
