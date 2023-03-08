@@ -3,7 +3,6 @@ import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.6.0"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
@@ -102,5 +101,5 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, ww
 
 
 def main():
-    click.echo("ndstextgen version " + __version__)
+    click.echo("ndstextgen version 1.6.0")
     gen()

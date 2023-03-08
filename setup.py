@@ -1,12 +1,11 @@
 from setuptools import setup
-from ndstextgen.cli import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
     name="ndstextgen",
-    version=__version__,
+    version="1.6.0",
     author="Illidan",
     description="Command line tool to render text from NDS .NFTR fonts.",
     long_description=long_description,
