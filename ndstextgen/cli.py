@@ -3,7 +3,7 @@ import os
 import click
 from PIL import Image
 from hacktools import common, nitro
-__version__ = "1.5.0"
+__version__ = "1.6.0"
 
 
 @common.cli.command(context_settings=dict(show_default=True))
