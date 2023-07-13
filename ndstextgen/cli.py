@@ -8,18 +8,19 @@ from hacktools import common, nitro
 @common.cli.command(context_settings=dict(show_default=True))
 @click.argument("font")
 @click.argument("text")
-@click.option("--out",     default="text.png",    help="Output file, set empty to just return the image.")
-@click.option("--vert",    default=2,             help="Vertical spacing between lines.")
-@click.option("--fw",      default=0,             help="Use a fixed width instead of the VWF values in the font.")
-@click.option("--spacing", default=0,             help="Additional horizontal spacing between characters.")
-@click.option("--color",   default="black",       help="Color to apply to the font.")
-@click.option("--bg",      default="transparent", help="Background color.")
-@click.option("--width",   default=256,           help="Set width for the generated image.")
-@click.option("--height",  default=256,           help="Set height for the generated image.")
-@click.option("--center",  is_flag=True,          help="Center each line.")
-@click.option("--wwrap",   is_flag=True,          help="Automatic wordwrap.")
-@click.option("--no-crop", is_flag=True,          help="Don't crop the image before saving it.")
-def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, wwrap, no_crop):
+@click.option("--out",      default="text.png",    help="Output file, set empty to just return the image.")
+@click.option("--vert",     default=2,             help="Vertical spacing between lines.")
+@click.option("--fw",       default=0,             help="Use a fixed width instead of the VWF values in the font.")
+@click.option("--spacing",  default=0,             help="Additional horizontal spacing between characters.")
+@click.option("--color",    default="black",       help="Color to apply to the font.")
+@click.option("--bg",       default="transparent", help="Background color.")
+@click.option("--width",    default=256,           help="Set width for the generated image.")
+@click.option("--height",   default=256,           help="Set height for the generated image.")
+@click.option("--center",   is_flag=True,          help="Center each line.")
+@click.option("--wwrap",    is_flag=True,          help="Automatic wordwrap.")
+@click.option("--no-crop",  is_flag=True,          help="Don't crop the image before saving it.")
+@click.option("--encoding", default="shift_jis",   help="Encoding the font uses.")
+def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, wwrap, no_crop, encoding):
     """FONT is the font file, .NFTR extension can be omitted.
 
     TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
@@ -37,7 +38,7 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, ww
     if not text.endswith("\n"):
         text += "\n"
     # Read the font data
-    nftr = nitro.readNFTR(font, True)
+    nftr = nitro.readNFTR(font, True, encoding)
     if wwrap:
         # Extract the glyphs for wordwrapping
         glyphs = {}
@@ -101,5 +102,5 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, ww
 
 
 def main():
-    click.echo("ndstextgen version 1.6.0")
+    click.echo("ndstextgen version 1.7.0")
     gen()
