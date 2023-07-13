@@ -23,6 +23,7 @@ Example: `ndstextgen --color red font.NFTR "Print multiline\nred text."`
 `--center`: Center each line.  
 `--wwrap`: Automatic wordwrap.  
 `--no-crop`: Don't crop the image before saving it.  
+`--encoding <str>`: Encoding the font uses. See [Python documentation](https://docs.python.org/3/library/codecs.html#standard-encodings).  
 ## Script usage
 ```python
 import ndstextgen
