@@ -102,5 +102,5 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, ww
 
 
 def main():
-    click.echo("ndstextgen version 1.7.0")
+    click.echo("ndstextgen version 1.7.1")
     gen()
