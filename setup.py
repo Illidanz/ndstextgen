@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="ndstextgen",
-    version="1.7.2",
+    version="1.7.3",
     author="Illidan",
     description="Command line tool to render text from NDS .NFTR fonts.",
     long_description=long_description,

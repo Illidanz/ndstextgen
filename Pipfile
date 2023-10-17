@@ -7,8 +7,6 @@ verify_ssl = true
 
 [packages]
 hacktools = {extras = ["cli", "graphics", "nds"], version = "*"}
-click = "*"
-pillow = "*"
 
 [requires]
 python_version = "3"
