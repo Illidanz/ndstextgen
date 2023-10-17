@@ -20,7 +20,8 @@ from hacktools import common, nitro
 @click.option("--wwrap",    is_flag=True,          help="Automatic wordwrap.")
 @click.option("--no-crop",  is_flag=True,          help="Don't crop the image before saving it.")
 @click.option("--encoding", default="shift_jis",   help="Encoding the font uses.")
-def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, wwrap, no_crop, encoding):
+@click.option("--no-esc",   is_flag=True,          help="Don't escape \\n.")
+def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, wwrap, no_crop, encoding, no_esc):
     """FONT is the font file, .NFTR extension can be omitted.
 
     TEXT is the text to write. "\\n" can be used for a line break. Can be the name of a UTF-8 file to read the text from."""
@@ -33,7 +34,9 @@ def gen(font, text, out, vert, fw, spacing, color, bg, width, height, center, ww
     if os.path.isfile(text):
         with codecs.open(text, "r", "utf-8") as f:
             text = f.read().replace("\r\n", "\\n").replace("\n", "\\n")
-    text = text.replace("\\n", "\n")
+    # Don't escape newline if not wanted
+    if not no_esc:
+        text = text.replace("\\n", "\n")
     # Add an additional line break to center the last line
     if not text.endswith("\n"):
         text += "\n"
