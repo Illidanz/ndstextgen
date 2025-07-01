@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="ndstextgen",
-    version="1.7.4",
+    version="1.7.5",
     author="Illidan",
     description="Command line tool to render text from NDS .NFTR fonts.",
     long_description=long_description,
@@ -21,7 +21,9 @@ setup(
         "console_scripts": ["ndstextgen=ndstextgen.cli:main"],
     },
     install_requires=[
-        "hacktools>=0.38.0"
+        "hacktools>=0.38.0",
+        "click>=8.1.0",
+        "pillow>=11.1.0"
     ],
     python_requires=">=3.7",
 )
